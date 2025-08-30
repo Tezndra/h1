@@ -14,8 +14,8 @@
         :root {
             --main-dark: #2D3944;
             --main-light: #F3F4ED;
-            --accent-1: #A5748F; /* New refined dusty rose for buttons and gradient */
-            --accent-2: #E89F6E; /* Orange kept for headings */
+            --accent-1: #A5748F;
+            --accent-2: #E89F6E;
         }
         body {
             font-family: 'VT323', monospace;
@@ -29,8 +29,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 4rem 1.5rem;
+            padding: 2rem 1rem;
             position: relative;
+            z-index: 10;
         }
         .header-link, .interest-btn, .contact-link {
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -56,6 +57,42 @@
         .know-more-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .background-icons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='35' font-size='30'%3E🕹️%3C/text%3E%3Ctext x='40' y='80' font-size='30'%3E👾%3C/text%3E%3C/svg%3E");
+            background-size: 150px;
+        }
+
+        /* Side animations */
+        .animated-icon {
+            position: fixed;
+            z-index: 5;
+            animation-iteration-count: infinite;
+            animation-fill-mode: forwards;
+        }
+        .falling {
+            top: -10%;
+            animation-name: fall;
+        }
+        .moving {
+            animation-name: move;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes move {
+            0% { transform: translateX(-100px); opacity: 0; }
+            50% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(100vw + 100px); opacity: 0; }
         }
 
         /* Slide-in animation for headings */
@@ -121,29 +158,45 @@
 </head>
 <body class="antialiased">
 
+    <!-- Retro Gaming Icons Background -->
+    <div class="background-icons"></div>
+
+    <!-- New Side Animations -->
+    <div class="animated-icon falling" style="animation-duration: 8s; animation-delay: 2s; left: 10%; font-size: 4rem;">👾</div>
+    <div class="animated-icon falling" style="animation-duration: 10s; animation-delay: 5s; right: 15%; font-size: 3.5rem;">🎮</div>
+    <div class="animated-icon falling" style="animation-duration: 9s; animation-delay: 8s; left: 50%; font-size: 3.8rem;">🏎️</div>
+    <div class="animated-icon falling" style="animation-duration: 7s; animation-delay: 1s; left: 25%; font-size: 3rem;">👾</div>
+    <div class="animated-icon falling" style="animation-duration: 11s; animation-delay: 6s; right: 40%; font-size: 4rem;">🎮</div>
+    <div class="animated-icon falling" style="animation-duration: 8s; animation-delay: 12s; left: 10%; font-size: 4rem;">🕹️</div>
+    <div class="animated-icon falling" style="animation-duration: 10s; animation-delay: 9s; right: 15%; font-size: 2rem;">🎾</div>
+    <div class="animated-icon falling" style="animation-duration: 9s; animation-delay: 10s; left: 50%; font-size: 3rem;">🏎️💨</div>
+    <div class="animated-icon falling" style="animation-duration: 8s; animation-delay: 11s; left: 10%; font-size: 3rem;">💾</div>
+    <div class="animated-icon falling" style="animation-duration: 9s; animation-delay: 3s; left: 50%; font-size: 3.8rem;">🏎️</div>
+   
+
     <!-- Top Header -->
     <header class="fixed top-0 left-0 w-full z-50 shadow-sm" style="background-color: var(--main-dark);">
-        <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <div class="text-3xl font-bold tracking-wider" style="color: var(--main-light);">Tezndra</div>
-            <ul class="flex space-x-4 sm:space-x-6 md:space-x-8">
-                <li><a href="#about" class="header-link hover:text-gray-900 font-medium">Home</a></li>
-                <li><a href="#skills" class="header-link hover:text-gray-900 font-medium">Skills</a></li>
-                <li><a href="#projects" class="header-link hover:text-gray-900 font-medium">Projects</a></li>
-                <li><a href="#interests" class="header-link hover:text-gray-900 font-medium">Interests</a></li>
-                <li><a href="#contact" class="header-link hover:text-gray-900 font-medium">Contact</a></li>
-                <li><a href="#resume" class="header-link hover:text-gray-900 font-medium">Resume</a></li>
+        <nav class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
+            <div class="text-4xl font-bold tracking-wider" style="color: var(--main-light);">Tezndra</div>
+            <ul class="flex flex-wrap justify-center space-x-2 sm:space-x-4 md:space-x-8 mt-2 sm:mt-0">
+                <li><a href="#about" class="header-link hover:text-gray-900 font-medium px-2 py-1 text-2xl">Home</a></li>
+                <li><a href="#skills" class="header-link hover:text-gray-900 font-medium px-2 py-1 text-2xl">Skills</a></li>
+                <li><a href="#projects" class="header-link hover:text-gray-900 font-medium px-2 py-1 text-2xl">Projects</a></li>
+                <li><a href="#interests" class="header-link hover:text-gray-900 font-medium px-2 py-1 text-2xl">Interests</a></li>
+                <li><a href="#contact" class="header-link hover:text-gray-900 font-medium px-2 py-1 text-2xl">Contact</a></li>
+                <li><a href="#resume" class="header-link hover:text-gray-900 font-medium px-2 py-1 text-2xl">Resume</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Main Page Content Sections -->
-    <main class="pt-24">
+    <main class="pt-24 relative z-10">
 
         <!-- About Me Section -->
         <section id="about" class="section-container fade-in-section">
-            <div class="max-w-4xl text-center px-4 py-12 slide-in">
-                <h1 class="text-6xl md:text-8xl font-bold mb-4" style="color: var(--accent-2);">Hello, I'm Tejendra Sai Kadiyala.</h1>
-                <p class="text-2xl mb-8 max-w-2xl mx-auto" style="color: var(--main-light);">
+            <div class="max-w-4xl text-center px-4 py-8 slide-in">
+                <h1 class="text-8xl md:text-[8rem] font-bold mb-4" style="color: var(--accent-2);">Hello, I'm Tejendra Sai Kadiyala.</h1>
+                <p class="text-4xl md:text-5xl mb-8 max-w-4xl mx-auto" style="color: var(--main-light);">
                     I'm a passionate and dedicated computer science and engineering student. I'm fascinated by the inner workings of technology. My current studies are driven by a deep curiosity about how the internet connects us all, and I'm particularly enthusiastic about the intricate world of computers. When I'm not immersed in my studies, I'm an avid sports fan. Feel free to explore my portfolio to learn more about my projects and interests.
                 </p>
                 <button onclick="openModal('about-me-modal')" class="know-more-btn">Know More</button>
@@ -152,12 +205,12 @@
 
         <!-- Education Section -->
         <section id="education" class="section-container">
-            <div class="max-w-4xl text-center px-4 py-12 slide-in">
-                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">Education</h2>
+            <div class="max-w-4xl text-center px-4 py-8 slide-in">
+                <h2 class="text-6xl md:text-7xl font-semibold mb-6" style="color: var(--accent-2);">Education</h2>
                 <div class="p-8 rounded-lg shadow-lg border-2 border-gray-800" style="background-color: var(--main-dark); color: var(--main-light);">
-                    <h3 class="text-3xl font-semibold mb-2" style="color: var(--accent-2);">Mahatma Gandhi Institute of Technology</h3>
-                    <p class="text-xl" style="color: var(--main-light);">Bachelor of Technology in Computer Science and Engineering</p>
-                    <p class="mt-4 text-lg" style="color: var(--main-light);">
+                    <h3 class="text-5xl md:text-6xl font-semibold mb-2" style="color: var(--accent-2);">Mahatma Gandhi Institute of Technology</h3>
+                    <p class="text-3xl md:text-4xl" style="color: var(--main-light);">Bachelor of Technology in Computer Science and Engineering</p>
+                    <p class="mt-4 text-2xl" style="color: var(--main-light);">
                         CGPA: 8.3
                     </p>
                 </div>
@@ -166,13 +219,13 @@
 
         <!-- Skills Section Preview -->
         <section id="skills" class="section-container fade-in-section">
-            <div class="max-w-4xl text-center px-4 py-12 slide-in">
-                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">Skills</h2>
+            <div class="max-w-4xl text-center px-4 py-8 slide-in">
+                <h2 class="text-6xl md:text-7xl font-semibold mb-6" style="color: var(--accent-2);">Skills</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
-                    <div class="p-4 rounded-lg shadow-sm text-center border-2" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Networking</div>
-                    <div class="p-4 rounded-lg shadow-sm text-center border-2" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Python, C, Java</div>
-                    <div class="p-4 rounded-lg shadow-sm text-center border-2" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Git & VS Code</div>
-                    <div class="p-4 rounded-lg shadow-sm text-center border-2" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Databases</div>
+                    <div class="p-4 rounded-lg shadow-sm text-center border-2 text-2xl md:text-3xl" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Networking</div>
+                    <div class="p-4 rounded-lg shadow-sm text-center border-2 text-2xl md:text-3xl" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Python, C, Java</div>
+                    <div class="p-4 rounded-lg shadow-sm text-center border-2 text-2xl md:text-3xl" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Git & VS Code</div>
+                    <div class="p-4 rounded-lg shadow-sm text-center border-2 text-2xl md:text-3xl" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Databases</div>
                 </div>
                 <button onclick="openModal('skills-modal')" class="know-more-btn">Know More</button>
             </div>
@@ -180,31 +233,31 @@
 
         <!-- Projects Section Preview -->
         <section id="projects" class="section-container">
-            <div class="max-w-4xl text-center px-4 py-12 slide-in">
-                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">Projects</h2>
+            <div class="max-w-4xl text-center px-4 py-8 slide-in">
+                <h2 class="text-6xl md:text-7xl font-semibold mb-6" style="color: var(--accent-2);">Projects</h2>
                 <div class="grid md:grid-cols-2 gap-8 mb-8">
                     <!-- Top, large project -->
                     <div onclick="openModal('project-stratos-modal')" class="col-span-2 p-8 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" style="background-color: var(--main-dark); border-color: var(--main-light); color: var(--main-light);">
-                        <h3 class="font-bold text-3xl mb-2" style="color: var(--accent-2);">Project Stratos</h3>
-                        <p class="text-lg" style="color: var(--main-light);">A Resilient LoRa Mesh Communication Network for Disaster Zones.</p>
+                        <h3 class="font-bold text-4xl md:text-5xl mb-2" style="color: var(--accent-2);">Project Stratos</h3>
+                        <p class="text-2xl md:text-3xl" style="color: var(--main-light);">A Resilient LoRa Mesh Communication Network for Disaster Zones.</p>
                     </div>
                     <!-- Second row projects -->
                     <div onclick="openModal('fars-modal')" class="p-6 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" style="background-color: var(--main-dark); border-color: var(--main-light); color: var(--main-light);">
-                        <h3 class="font-bold text-2xl mb-2" style="color: var(--accent-2);">FARS</h3>
-                        <p class="text-lg" style="color: var(--main-light);">Facial Attendance Recognition System.</p>
+                        <h3 class="font-bold text-3xl md:text-4xl mb-2" style="color: var(--accent-2);">FARS</h3>
+                        <p class="text-2xl md:text-3xl" style="color: var(--main-light);">Facial Attendance Recognition System.</p>
                     </div>
                     <div onclick="openModal('air-quality-modal')" class="p-6 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" style="background-color: var(--main-dark); border-color: var(--main-light); color: var(--main-light);">
-                        <h3 class="font-bold text-2xl mb-2" style="color: var(--accent-2);">Real Time Air Quality Monitor</h3>
-                        <p class="text-lg" style="color: var(--main-light);">Real-Time Air Quality Monitoring System.</p>
+                        <h3 class="font-bold text-3xl md:text-4xl mb-2" style="color: var(--accent-2);">Real Time Air Quality Monitor</h3>
+                        <p class="text-2xl md:text-3xl" style="color: var(--main-light);">Real-Time Air Quality Monitoring System.</p>
                     </div>
                     <!-- Bottom row projects -->
                     <div onclick="openModal('doodle-app-modal')" class="p-6 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" style="background-color: var(--main-dark); border-color: var(--main-light); color: var(--main-light);">
-                        <h3 class="font-bold text-2xl mb-2" style="color: var(--accent-2);">Doodle App</h3>
-                        <p class="text-lg" style="color: var(--main-light);">A creative drawing application built with Flutter.</p>
+                        <h3 class="font-bold text-3xl md:text-4xl mb-2" style="color: var(--accent-2);">Doodle App</h3>
+                        <p class="text-2xl md:text-3xl" style="color: var(--main-light);">A creative drawing application built with Flutter.</p>
                     </div>
                     <div onclick="openModal('essai-modal')" class="p-6 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" style="background-color: var(--main-dark); border-color: var(--main-light); color: var(--main-light);">
-                        <h3 class="font-bold text-2xl mb-2" style="color: var(--accent-2);">essAI</h3>
-                        <p class="text-lg" style="color: var(--main-light);">An automated essay evaluation and grading system.</p>
+                        <h3 class="font-bold text-3xl md:text-4xl mb-2" style="color: var(--accent-2);">essAI</h3>
+                        <p class="text-2xl md:text-3xl" style="color: var(--main-light);">An automated essay evaluation and grading system.</p>
                     </div>
                 </div>
                 <button onclick="openModal('projects-modal')" class="know-more-btn">Know More</button>
@@ -213,22 +266,21 @@
 
         <!-- Interests Section Preview -->
         <section id="interests" class="section-container fade-in-section">
-            <div class="max-w-4xl text-center px-4 py-12 slide-in">
-                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">Interests</h2>
-                <div class="flex flex-wrap justify-center space-x-4 md:space-x-8 text-xl mb-8">
-                    <button onclick="openModal('f1-modal')" class="interest-btn" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🏎️ Formula 1</button>
-                    <button onclick="openModal('tennis-modal')" class="interest-btn" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🎾 Tennis</button>
-                    <button onclick="openModal('wec-modal')" class="interest-btn" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🏁 WEC</button>
-                    <button onclick="openModal('cricket-modal')" class="interest-btn" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🏏 Cricket</button>
-                    <button onclick="openModal('motogp-modal')" class="interest-btn" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🏍️ MotoGP</button>
+            <div class="max-w-4xl text-center px-4 py-8 slide-in">
+                <h2 class="text-6xl md:text-7xl font-semibold mb-6" style="color: var(--accent-2);">Interests</h2>
+                <div class="flex flex-wrap justify-center space-x-4 md:space-x-8 text-2xl md:text-3xl mb-8">
+                    <button onclick="openModal('f1-modal')" class="interest-btn px-4 py-2" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🏎️ Formula 1</button>
+                    <button onclick="openModal('basketball-modal')" class="interest-btn px-4 py-2" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🏀 Basketball</button>
+                    <button onclick="openModal('tennis-modal')" class="interest-btn px-4 py-2" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🎾 Tennis</button>
+                    <button onclick="openModal('wec-modal')" class="interest-btn px-4 py-2" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🏁 WEC</button>
                 </div>
             </div>
         </section>
         
         <!-- Contact Section -->
         <section id="contact" class="section-container">
-            <div class="max-w-4xl text-center px-4 py-12 slide-in">
-                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">Get in Touch</h2>
+            <div class="max-w-4xl text-center px-4 py-8 slide-in">
+                <h2 class="text-6xl md:text-7xl font-semibold mb-6" style="color: var(--accent-2);">Get in Touch</h2>
                 <div class="flex flex-wrap justify-center space-x-4 md:space-x-8 text-xl">
                     <a href="mailto:k.tejendrasai@gmail.com" class="contact-link" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">
                         <!-- Email Icon SVG -->
@@ -258,9 +310,9 @@
 
         <!-- Resume Section -->
         <section id="resume" class="section-container fade-in-section">
-            <div class="max-w-4xl text-center px-4 py-12 slide-in">
-                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">My Resume</h2>
-                <p class="text-lg mb-8" style="color: var(--main-light);">
+            <div class="max-w-4xl text-center px-4 py-8 slide-in">
+                <h2 class="text-6xl md:text-7xl font-semibold mb-6" style="color: var(--accent-2);">My Resume</h2>
+                <p class="text-3xl md:text-4xl mb-8" style="color: var(--main-light);">
                     View my full professional history and skills.
                 </p>
                 <a href="https://drive.google.com/file/d/17DZDeKYQssci03zsgODQCx1PDyX8fq7T/view?usp=sharing" class="know-more-btn" target="_blank" rel="noopener noreferrer">Download Resume</a>
@@ -269,9 +321,9 @@
         
         <!-- Monkeytype Profile Section -->
         <section id="monkeytype" class="section-container fade-in-section pb-24">
-            <div class="max-w-4xl text-center px-4 py-12 slide-in">
-                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">My Monkeytype Profile</h2>
-                <p class="text-lg mb-8" style="color: var(--main-light);">
+            <div class="max-w-4xl text-center px-4 py-8 slide-in">
+                <h2 class="text-6xl md:text-7xl font-semibold mb-6" style="color: var(--accent-2);">My Monkeytype Profile</h2>
+                <p class="text-3xl md:text-4xl mb-8" style="color: var(--main-light);">
                     Check out my typing speed and progress.
                 </p>
                 <a href="https://monkeytype.com/profile/tejendra" class="know-more-btn" target="_blank" rel="noopener noreferrer">View Profile</a>
@@ -281,7 +333,7 @@
     </main>
 
     <!-- Bottom Footer -->
-    <footer class="py-6 text-center" style="background-color: var(--accent-1); color: var(--main-dark);">
+    <footer class="py-6 text-center relative z-10" style="background-color: var(--accent-1); color: var(--main-dark);">
         <div class="container mx-auto">
             <p>&copy; 2024 Tezndra. All Rights Reserved.</p>
         </div>
@@ -291,8 +343,8 @@
     <div id="about-me-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('about-me-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">More About Tezndra</h3>
-            <p class="text-xl">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">More About Tezndra</h3>
+            <p class="text-2xl md:text-3xl">
                 I'm a passionate and dedicated computer science and engineering student. I'm fascinated by the inner workings of technology. My current studies are driven by a deep curiosity about how the internet connects us all, and I'm particularly enthusiastic about the intricate world of computers. When I'm not immersed in my studies, I'm an avid sports fan. Feel free to explore my portfolio to learn more about my projects and interests.
             </p>
         </div>
@@ -301,8 +353,8 @@
     <div id="skills-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('skills-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">My Core Skills</h3>
-            <ul class="list-disc list-inside text-xl">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">My Core Skills</h3>
+            <ul class="list-disc list-inside text-2xl md:text-3xl">
                 <li>
                     **Computer Networking:** Fundamentals of networking, including a certification from Cisco.
                 </li>
@@ -326,11 +378,11 @@
     <div id="project-stratos-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('project-stratos-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">Project Stratos: A Resilient LoRa Mesh Communication Network for Disaster Zones</h3>
-            <p class="text-xl mb-4">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">Project Stratos: A Resilient LoRa Mesh Communication Network for Disaster Zones</h3>
+            <p class="text-2xl md:text-3xl mb-4">
                 Developed a resilient communication system using a **LoRa mesh network** for disaster zones. This project features a Wi-Fi captive portal for victim connectivity, BLE-based redundancy for enhanced fault tolerance, and an offline geotagged SOS mapping interface.
             </p>
-            <p class="text-xl">
+            <p class="text-2xl md:text-3xl">
                 I integrated TinyML models for intelligent message prioritization and implemented Delay-Tolerant Networking (DTN) protocols to ensure robust connectivity even in the absence of cellular or internet infrastructure.
             </p>
         </div>
@@ -338,8 +390,8 @@
     <div id="fars-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('fars-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">FARS: Facial Attendance Recognition System</h3>
-            <p class="text-xl mb-4">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">FARS: Facial Attendance Recognition System</h3>
+            <p class="text-2xl md:text-3xl mb-4">
                 FARS is a real-time facial recognition-based attendance system using a Raspberry Pi 5 and camera. The system is capable of detecting and marking attendance with timestamped entries in daily CSV files. It is designed to automate the attendance process and prevents duplicate entries.
             </p>
         </div>
@@ -347,8 +399,8 @@
     <div id="air-quality-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('air-quality-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">Real-Time Air Quality Monitoring System</h3>
-            <p class="text-xl mb-4">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">Real-Time Air Quality Monitoring System</h3>
+            <p class="text-2xl md:text-3xl mb-4">
                 This low-cost IoT-based system continuously monitors air quality in real time. It measures PM2.5 and gas concentration (CO, NH, etc.) using environmental sensors. Data is transmitted via Wi-Fi using an ESP8266, and the system provides audible alerts through a buzzer. It also includes AI-based air quality prediction and integrates with Home Assistant for real-time dashboards.
             </p>
         </div>
@@ -356,8 +408,8 @@
     <div id="sportsyme-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('sportsyme-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">Sportsy Me</h3>
-            <p class="text-xl mb-4">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">Sportsy Me</h3>
+            <p class="text-2xl md:text-3xl mb-4">
                 Sportsy Me is an innovative web platform that enhances the sports viewing experience. It provides a centralized hub for discovering sporting events across multiple disciplines, offering detailed match listings, curated live streaming links, and time zone conversion to ensure global accessibility.
             </p>
         </div>
@@ -365,8 +417,8 @@
     <div id="essai-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('essai-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">essAI</h3>
-            <p class="text-xl mb-4">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">essAI</h3>
+            <p class="text-2xl md:text-3xl mb-4">
                 essAI is an automated essay evaluation and grading system powered by artificial intelligence and natural language processing.
             </p>
         </div>
@@ -375,8 +427,8 @@
     <div id="doodle-app-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('doodle-app-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">Doodle App</h3>
-            <p class="text-xl mb-4">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">Doodle App</h3>
+            <p class="text-2xl md:text-3xl mb-4">
                 A creative drawing app built with Flutter. It's designed to be a simple yet powerful tool for doodling and sketching, featuring various brush types, a customizable color palette, and the ability to save your creations. This project helped me explore the world of cross-platform mobile development.
             </p>
         </div>
@@ -385,11 +437,11 @@
     <div id="projects-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('projects-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">My Projects</h3>
-            <p class="text-xl mb-4">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">My Projects</h3>
+            <p class="text-2xl md:text-3xl mb-4">
                 This section showcases a few of my favorite projects. Each one represents a unique challenge and a chance to apply my skills in a creative way. Click on any of the projects below to learn more about the technologies I used and the problems I solved.
             </p>
-            <ul class="list-disc list-inside text-xl">
+            <ul class="list-disc list-inside text-2xl md:text-3xl">
                 <li>**Project Stratos:** A resilient communication network for disaster zones.</li>
                 <li>**FARS:** A facial recognition attendance system.</li>
                 <li>**Air Quality Monitoring:** An IoT-based real-time air quality system.</li>
@@ -403,9 +455,19 @@
     <div id="f1-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('f1-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">Why I love Formula 1</h3>
-            <p class="text-xl">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">Why I love Formula 1</h3>
+            <p class="text-2xl md:text-3xl">
                 Formula 1 is the pinnacle of engineering, strategy, and sheer human will. I love the high-stakes competition and the way teams constantly innovate to gain a millisecond of an advantage. It's a sport where every detail matters, and who masters the rule book, rules the regulations.
+            </p>
+        </div>
+    </div>
+
+    <div id="basketball-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('basketball-modal')">&times;</span>
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">Why I love Basketball</h3>
+            <p class="text-2xl md:text-3xl">
+                Basketball is a fast-paced and strategic game. I am drawn to the incredible athleticism of the players and the intricate teamwork required to succeed. It's a sport that combines individual talent with collective effort, creating a dynamic and exciting experience.
             </p>
         </div>
     </div>
@@ -413,8 +475,8 @@
     <div id="tennis-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('tennis-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">Why I love Tennis</h3>
-            <p class="text-xl">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">Why I love Tennis</h3>
+            <p class="text-2xl md:text-3xl">
                 Tennis is a sport of pure focus and determination. It's a fascinating blend of mental strategy and physical endurance. I enjoy the one-on-one challenge and the constant need to adapt to your opponent's play style.
             </p>
         </div>
@@ -423,32 +485,14 @@
     <div id="wec-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('wec-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">Why I love WEC</h3>
-            <p class="text-xl">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4">Why I love WEC</h3>
+            <p class="text-2xl md:text-3xl">
                 The World Endurance Championship (WEC) is all about teamwork and reliability. I find the strategy of endurance racing, where a team of drivers and engineers work together to maintain a car over 24 hours, incredibly inspiring. It's a powerful lesson in long-term planning and problem-solving.
             </p>
         </div>
     </div>
 
-    <div id="cricket-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('cricket-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">Why I love Cricket</h3>
-            <p class="text-xl">
-                Cricket is a sport that demands both physical skill and deep tactical thinking. I'm fascinated by the strategic nuances of the game, from the intricate field placements to the high-pressure situations that test a player's composure. It's a sport that combines individual brilliance with team synergy.
-            </p>
-        </div>
-    </div>
-
-    <div id="motogp-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('motogp-modal')">&times;</span>
-            <h3 class="text-3xl font-bold mb-4">Why I love MotoGP</h3>
-            <p class="text-xl">
-                MotoGP is an incredible spectacle of speed, precision, and bravery. I'm drawn to the raw thrill of the sport and the level of control and skill the riders possess. The constant push for innovation in technology and the rider's dedication make it a truly captivating sport to follow.
-            </p>
-        </div>
-    </div>
+    
 
     <script>
         // Modal functions
