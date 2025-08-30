@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tezndra's Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Typewriter style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-dark: #2D3944;
+            --main-light: #F3F4ED;
+            --accent-1: #A5748F; /* New refined dusty rose for buttons and gradient */
+            --accent-2: #E89F6E; /* Orange kept for headings */
+        }
+        body {
+            font-family: 'VT323', monospace;
+            background: linear-gradient(to bottom, var(--main-dark), var(--accent-1));
+            background-attachment: fixed;
+            color: var(--main-light);
+            scroll-behavior: smooth;
+        }
+        .section-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 1.5rem;
+            position: relative;
+        }
+        .header-link, .interest-btn, .contact-link {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border: 2px solid var(--main-light);
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            background-color: transparent;
+        }
+        .header-link:hover, .interest-btn:hover, .contact-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+        .know-more-btn {
+            background-color: var(--accent-1);
+            color: var(--main-dark);
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border: 2px solid var(--main-light);
+        }
+        .know-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Slide-in animation for headings */
+        .slide-in h1, .slide-in h2 {
+            opacity: 0;
+            transform: translateX(-100%);
+            animation: slideInFromLeft 1s ease-out forwards;
+        }
+        @keyframes slideInFromLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(45,57,68,0.75);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: var(--main-dark);
+            color: var(--main-light);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 2px solid var(--main-light);
+            max-width: 90%;
+            min-height: 50%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--main-light);
+        }
+
+        /* Fade-in on scroll animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Top Header -->
+    <header class="fixed top-0 left-0 w-full z-50 shadow-sm" style="background-color: var(--main-dark);">
+        <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="text-3xl font-bold tracking-wider" style="color: var(--main-light);">Tezndra</div>
+            <ul class="flex space-x-4 sm:space-x-6 md:space-x-8">
+                <li><a href="#about" class="header-link hover:text-gray-900 font-medium">Home</a></li>
+                <li><a href="#skills" class="header-link hover:text-gray-900 font-medium">Skills</a></li>
+                <li><a href="#projects" class="header-link hover:text-gray-900 font-medium">Projects</a></li>
+                <li><a href="#interests" class="header-link hover:text-gray-900 font-medium">Interests</a></li>
+                <li><a href="#contact" class="header-link hover:text-gray-900 font-medium">Contact</a></li>
+                <li><a href="#resume" class="header-link hover:text-gray-900 font-medium">Resume</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Page Content Sections -->
+    <main class="pt-24">
+
+        <!-- About Me Section -->
+        <section id="about" class="section-container fade-in-section">
+            <div class="max-w-4xl text-center px-4 py-12 slide-in">
+                <h1 class="text-6xl md:text-8xl font-bold mb-4" style="color: var(--accent-2);">Hello, I'm Tejendra Kadiyala.</h1>
+                <p class="text-2xl mb-8 max-w-2xl mx-auto" style="color: var(--main-light);">
+                    I'm a passionate and dedicated computer science and engineering student. I'm fascinated by the inner workings of technology. My current studies are driven by a deep curiosity about how the internet connects us all, and I'm particularly enthusiastic about the intricate world of computers. When I'm not immersed in my studies, I'm an avid sports fan. Feel free to explore my portfolio to learn more about my projects and interests.
+                </p>
+                <button onclick="openModal('about-me-modal')" class="know-more-btn">Know More</button>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section-container">
+            <div class="max-w-4xl text-center px-4 py-12 slide-in">
+                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">Education</h2>
+                <div class="p-8 rounded-lg shadow-lg border-2 border-gray-800" style="background-color: var(--main-dark); color: var(--main-light);">
+                    <h3 class="text-3xl font-semibold mb-2" style="color: var(--accent-2);">Mahatma Gandhi Institute of Technology</h3>
+                    <p class="text-xl" style="color: var(--main-light);">Bachelor of Technology in Computer Science and Engineering</p>
+                    <p class="mt-4 text-lg" style="color: var(--main-light);">
+                        CGPA: 8.3
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section Preview -->
+        <section id="skills" class="section-container fade-in-section">
+            <div class="max-w-4xl text-center px-4 py-12 slide-in">
+                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">Skills</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
+                    <div class="p-4 rounded-lg shadow-sm text-center border-2" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Networking</div>
+                    <div class="p-4 rounded-lg shadow-sm text-center border-2" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Python, C, Java</div>
+                    <div class="p-4 rounded-lg shadow-sm text-center border-2" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Git & VS Code</div>
+                    <div class="p-4 rounded-lg shadow-sm text-center border-2" style="background-color: var(--accent-1); color: var(--main-dark); border-color: var(--main-light);">Databases</div>
+                </div>
+                <button onclick="openModal('skills-modal')" class="know-more-btn">Know More</button>
+            </div>
+        </section>
+
+        <!-- Projects Section Preview -->
+        <section id="projects" class="section-container">
+            <div class="max-w-4xl text-center px-4 py-12 slide-in">
+                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">Projects</h2>
+                <div class="grid md:grid-cols-3 gap-8 mb-8">
+                    <div onclick="openModal('project-stratos-modal')" class="p-6 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" style="background-color: var(--main-dark); border-color: var(--main-light); color: var(--main-light);">
+                        <h3 class="font-bold text-2xl mb-2" style="color: var(--accent-2);">Project Stratos</h3>
+                        <p class="text-lg" style="color: var(--main-light);">A Resilient LoRa Mesh Communication Network for Disaster Zones.</p>
+                    </div>
+                    <div onclick="openModal('fars-modal')" class="p-6 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" style="background-color: var(--main-dark); border-color: var(--main-light); color: var(--main-light);">
+                        <h3 class="font-bold text-2xl mb-2" style="color: var(--accent-2);">FARS</h3>
+                        <p class="text-lg" style="color: var(--main-light);">Facial Attendance Recognition System.</p>
+                    </div>
+                    <div onclick="openModal('air-quality-modal')" class="p-6 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" style="background-color: var(--main-dark); border-color: var(--main-light); color: var(--main-light);">
+                        <h3 class="font-bold text-2xl mb-2" style="color: var(--accent-2);">Real time Air Quality monitoring system</h3>
+                        <p class="text-lg" style="color: var(--main-light);">Real-Time Air Quality Monitoring System.</p>
+                    </div>
+                    <div onclick="openModal('sportsyme-modal')" class="p-6 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" style="background-color: var(--main-dark); border-color: var(--main-light); color: var(--main-light);">
+                        <h3 class="font-bold text-2xl mb-2" style="color: var(--accent-2);">Sportsy Me</h3>
+                        <p class="text-lg" style="color: var(--main-light);">An innovative sports viewing web platform.</p>
+                    </div>
+                    <div onclick="openModal('essai-modal')" class="p-6 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" style="background-color: var(--main-dark); border-color: var(--main-light); color: var(--main-light);">
+                        <h3 class="font-bold text-2xl mb-2" style="color: var(--accent-2);">essAI</h3>
+                        <p class="text-lg" style="color: var(--main-light);">An automated essay evaluation and grading system.</p>
+                    </div>
+                </div>
+                <button onclick="openModal('projects-modal')" class="know-more-btn">Know More</button>
+            </div>
+        </section>
+
+        <!-- Interests Section Preview -->
+        <section id="interests" class="section-container fade-in-section">
+            <div class="max-w-4xl text-center px-4 py-12 slide-in">
+                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">Interests</h2>
+                <div class="flex flex-wrap justify-center space-x-4 md:space-x-8 text-xl mb-8">
+                    <button onclick="openModal('f1-modal')" class="interest-btn" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🏎️ Formula 1</button>
+                    <button onclick="openModal('tennis-modal')" class="interest-btn" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🎾 Tennis</button>
+                    <button onclick="openModal('wec-modal')" class="interest-btn" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">🏁 WEC</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="section-container">
+            <div class="max-w-4xl text-center px-4 py-12 slide-in">
+                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">Get in Touch</h2>
+                <div class="flex flex-wrap justify-center space-x-4 md:space-x-8 text-xl">
+                    <a href="mailto:k.tejendrasai@gmail.com" class="contact-link" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">
+                        <!-- Email Icon SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        Email
+                    </a>
+                    <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer" class="contact-link" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">
+                        <!-- GitHub Icon SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77a5.07 5.07 0 0 0-1.72-2.14 5.61 5.61 0 0 0-4.48 0C11.5 2.15 10.43 2 9.4 2c-5.06 0-7 2.5-7 7.5S4 17 9 19"></path>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" class="contact-link" style="background-color: var(--accent-1); color: var(--main-dark); transition: background-color 0.2s ease-in-out;">
+                        <!-- LinkedIn Icon SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-6 w-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.761s.784-1.761 1.75-1.761 1.75.79 1.75 1.761-.783 1.761-1.75 1.761zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.697 7 2.128v7.107z"></path>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume" class="section-container fade-in-section pb-24">
+            <div class="max-w-4xl text-center px-4 py-12 slide-in">
+                <h2 class="text-4xl font-semibold mb-6" style="color: var(--accent-2);">My Resume</h2>
+                <p class="text-lg mb-8" style="color: var(--main-light);">
+                    View my full professional history and skills.
+                </p>
+                <a href="https://drive.google.com/file/d/17DZDeKYQssci03zsgODQCx1PDyX8fq7T/view?usp=sharing" class="know-more-btn" target="_blank" rel="noopener noreferrer">Download Resume</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Footer -->
+    <footer class="py-6 text-center" style="background-color: var(--accent-1); color: var(--main-dark);">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Tezndra. All Rights Reserved.</p>
+            <p class="mt-2">
+                <a href="https://monkeytype.com/profile" target="_blank" rel="noopener noreferrer" style="color: var(--main-dark);">
+                    My Monkeytype Profile
+                </a>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Modals -->
+    <div id="about-me-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('about-me-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">More About Tezndra</h3>
+            <p class="text-xl">
+                I'm a passionate and dedicated computer science and engineering student. I'm fascinated by the inner workings of technology. My current studies are driven by a deep curiosity about how the internet connects us all, and I'm particularly enthusiastic about the intricate world of computers. When I'm not immersed in my studies, I'm an avid sports fan. Feel free to explore my portfolio to learn more about my projects and interests.
+            </p>
+        </div>
+    </div>
+    
+    <div id="skills-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('skills-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">My Core Skills</h3>
+            <ul class="list-disc list-inside text-xl">
+                <li>
+                    **Computer Networking:** Fundamentals of networking, including a certification from Cisco.
+                </li>
+                <li>
+                    **Programming Languages:** Proficient in **C**, **Python**, **Java**, and **JavaScript**, as well as **HTML** and **CSS** for web development.
+                </li>
+                <li>
+                    **Libraries/Frameworks:** Experience with **NodeJS**.
+                </li>
+                <li>
+                    **Tools / Platforms:** Experienced with **Git**, **VS Code**, and **Github**.
+                </li>
+                <li>
+                    **Databases:** Knowledge of **SQL**, **Oracle**, and **Firebase**.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Project Modals -->
+    <div id="project-stratos-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('project-stratos-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">Project Stratos: A Resilient LoRa Mesh Communication Network for Disaster Zones</h3>
+            <p class="text-xl mb-4">
+                Developed a resilient communication system using a **LoRa mesh network** for disaster zones. This project features a Wi-Fi captive portal for victim connectivity, BLE-based redundancy for enhanced fault tolerance, and an offline geotagged SOS mapping interface.
+            </p>
+            <p class="text-xl">
+                I integrated TinyML models for intelligent message prioritization and implemented Delay-Tolerant Networking (DTN) protocols to ensure robust connectivity even in the absence of cellular or internet infrastructure.
+            </p>
+        </div>
+    </div>
+    <div id="fars-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('fars-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">FARS: Facial Attendance Recognition System</h3>
+            <p class="text-xl mb-4">
+                FARS is a real-time facial recognition-based attendance system using a Raspberry Pi 5 and camera. The system is capable of detecting and marking attendance with timestamped entries in daily CSV files. It is designed to automate the attendance process and prevents duplicate entries.
+            </p>
+        </div>
+    </div>
+    <div id="air-quality-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('air-quality-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">Real-Time Air Quality Monitoring System</h3>
+            <p class="text-xl mb-4">
+                This low-cost IoT-based system continuously monitors air quality in real time. It measures PM2.5 and gas concentration (CO, NH, etc.) using environmental sensors. Data is transmitted via Wi-Fi using an ESP8266, and the system provides audible alerts through a buzzer. It also includes AI-based air quality prediction and integrates with Home Assistant for real-time dashboards.
+            </p>
+        </div>
+    </div>
+    <div id="sportsyme-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('sportsyme-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">Sportsy Me</h3>
+            <p class="text-xl mb-4">
+                Sportsy Me is an innovative web platform that enhances the sports viewing experience. It provides a centralized hub for discovering sporting events across multiple disciplines, offering detailed match listings, curated live streaming links, and time zone conversion to ensure global accessibility.
+            </p>
+        </div>
+    </div>
+    <div id="essai-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('essai-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">essAI</h3>
+            <p class="text-xl mb-4">
+                essAI is an automated essay evaluation and grading system powered by artificial intelligence and natural language processing.
+            </p>
+        </div>
+    </div>
+    
+    <div id="projects-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('projects-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">My Projects</h3>
+            <p class="text-xl mb-4">
+                This section showcases a few of my favorite projects. Each one represents a unique challenge and a chance to apply my skills in a creative way. Click on any of the projects below to learn more about the technologies I used and the problems I solved.
+            </p>
+            <ul class="list-disc list-inside text-xl">
+                <li>**Project Stratos:** A resilient communication network for disaster zones.</li>
+                <li>**FARS:** A facial recognition attendance system.</li>
+                <li>**Air Quality Monitoring:** An IoT-based real-time air quality system.</li>
+                <li>**Sportsy Me:** A web platform for sports fans.</li>
+                <li>**essAI:** An automated essay evaluation and grading system.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="f1-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('f1-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">Why I love Formula 1</h3>
+            <p class="text-xl">
+                Formula 1 is the pinnacle of engineering, strategy and rules. I love the high-stakes competition and the way teams constantly innovate to gain a millisecond of an advantage. It's a sport where every detail matters and the one that understands the rule book rules the regulations.
+            </p>
+        </div>
+    </div>
+
+    <div id="tennis-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('tennis-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">Why I love Tennis</h3>
+            <p class="text-xl">
+                Tennis is a sport of pure focus and determination. It's a fascinating blend of mental strategy and physical endurance. I enjoy the one-on-one challenge and the constant need to adapt to your opponent's play style.
+            </p>
+        </div>
+    </div>
+    
+    <div id="wec-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('wec-modal')">&times;</span>
+            <h3 class="text-3xl font-bold mb-4">Why I love WEC</h3>
+            <p class="text-xl">
+                The World Endurance Championship (WEC) is all about teamwork and reliability. I find the strategy of endurance racing, where a team of drivers and engineers work together to maintain a car over 24 hours, incredibly inspiring. It's a powerful lesson in long-term planning and problem-solving.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId) {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Heading slide-in animation on scroll
+        const slideInSections = document.querySelectorAll('.slide-in');
+        const slideInObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const headings = entry.target.querySelectorAll('h1, h2');
+                    headings.forEach(heading => {
+                        heading.style.animation = 'slideInFromLeft 1s ease-out forwards';
+                    });
+                    slideInObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        slideInSections.forEach(section => {
+            slideInObserver.observe(section);
+        });
+
+        // Fade-in on scroll animation
+        const fadeInSections = document.querySelectorAll('.fade-in-section');
+        const fadeInObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        fadeInSections.forEach(section => {
+            fadeInObserver.observe(section);
+        });
+    </script>
+</body>
+</html>
